@@ -42,8 +42,7 @@
           </div>
 
           <div v-if="!pedidoId" class="agro-simulador-panel" style="text-align: center;">
-            <p>No hay pedidos en curso. Activamos la escucha de eventos...</p>
-            <button class="agro-btn" @click="simularPedidoSimulado">Simular Pedido de Prueba (v2)</button>
+            <p>No hay pedidos activos en este momento. Al confirmar una compra en el carrito, aquí podrás seguir su entrega en tiempo real.</p>
           </div>
 
           <div v-else>
@@ -132,17 +131,6 @@
           iniciarSimulacionLogistica();
         };
 
-        const simularPedidoSimulado = () => {
-          const eventoV2 = new CustomEvent('pedido:confirmado:v2', {
-            detail: {
-              pedidoId: 'PED-' + Math.floor(Math.random() * 8999 + 1000),
-              total: 45000,
-              idConductor: 'COND-99 (Juan Pérez)'
-            }
-          });
-          window.dispatchEvent(eventoV2);
-        };
-
         onMounted(() => {
           // Suscripción a v1 y v2
           window.addEventListener('pedido:confirmado', handlePedidoConfirmado);
@@ -171,8 +159,7 @@
           estados: ESTADOS,
           estadoActualIndex,
           estadoActual,
-          totalFormat,
-          simularPedidoSimulado
+          totalFormat
         };
       }
     });
