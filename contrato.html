@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Pruebas de Contrato - MFE Pedidos (Anderson Cuadrado)</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="pedidos.js"></script>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 20px; background: #f3f4f6; }
+    .test-suite { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 600px; margin: 0 auto; }
+    .pass { color: #16a34a; font-weight: bold; }
+    .fail { color: #dc2626; font-weight: bold; }
+    ul { list-style-type: square; padding-left: 20px; }
+    li { margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <div class="test-suite">
+    <h2>🧪 Pruebas de Contrato (Consumer-Driven Contracts)</h2>
+    <p><strong>MFE:</strong> agrocesar-pedidos (Anderson Javier Cuadrado Arguello)</p>
+    <hr>
+    <h3>Resultados de la Ejecución:</h3>
+    <ul id="test-results"></ul>
+    <div id="test-mount-target" style="display:none;"></div>
+  </div>
+
+  <script>
+    const results = document.getElementById('test-results');
+
+    function logTest(name, passed, detail = '') {
+      const li = document.createElement('li');
+      li.innerHTML = `<strong>${name}:</strong> <span class="${passed ? 'pass' : 'fail'}">${passed ? 'PASÓ (OK)' : 'FALLÓ'}</span> ${detail}`;
+      results.appendChild(li);
+      console.assert(passed, `[TEST FAILED] ${name}: ${detail}`);
+    }
+
+    // Test 1: Verificar existencia de funciones globales de contrato
+    const test1 = typeof window.mountAgroSeguimiento === 'function' && typeof window.unmountAgroSeguimiento === 'function';
+    logTest('Prueba 1: Firmas de Ciclo de Vida (Mount/Unmount)', test1, 'window.mountAgroSeguimiento y window.unmountAgroSeguimiento deben ser funciones globales.');
+
+    // Test 2: Instanciación correcta en DOM
+    let test2 = false;
+    try {
+      window.mountAgroSeguimiento('test-mount-target', { pedidoId: 'TEST-100', total: 50000 });
+      const targetDiv = document.getElementById('test-mount-target');
+      test2 = targetDiv.children.length > 0 && targetDiv.innerHTML.includes('TEST-100');
+    } catch (e) {
+      test2 = false;
+    }
+    logTest('Prueba 2: Instanciación de UI en DOM', test2, 'El componente Vue debe renderizar el pedidoId inyectado.');
+
+    // Test 3: Emisión de evento pedido:estado
+    let test3 = false;
+    const handleEstado = (e) => {
+      if (e.detail && e.detail.pedidoId === 'TEST-EVENT') {
+        test3 = true;
+      }
+    };
+    window.addEventListener('pedido:estado', handleEstado);
+
+    window.mountAgroSeguimiento('test-mount-target', { pedidoId: 'TEST-EVENT', total: 10000 });
+    
+    setTimeout(() => {
+      window.removeEventListener('pedido:estado', handleEstado);
+      logTest('Prueba 3: Emisión de CustomEvent pedido:estado', test3, 'Debe emitir el estado inicial al montar un pedido.');
+
+      // Test 4: Desmontaje y limpieza de memoria
+      let test4 = false;
+      try {
+        window.unmountAgroSeguimiento('test-mount-target');
+        const targetDiv = document.getElementById('test-mount-target');
+        test4 = targetDiv.innerHTML === '';
+      } catch (e) {
+        test4 = false;
+      }
+      logTest('Prueba 4: Limpieza de Memoria y Desmontaje DOM', test4, 'unmountAgroSeguimiento debe vaciar el contenedor e inactivar el timer.');
+    }, 500);
+  </script>
+</body>
+</html>
