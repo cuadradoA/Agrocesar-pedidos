@@ -1,0 +1,132 @@
+/* Estilos locales de MFE Pedidos consumiendo los tokens visuales del Shell */
+:root {
+  --agro-primario: #2e7d32;
+  --agro-secundario: #fbc02d;
+  --agro-fuente: 'Inter', system-ui, -apple-system, sans-serif;
+  --agro-fondo: #f9fafb;
+  --agro-espaciado-md: 16px;
+  --agro-borde-radius: 12px;
+  --agro-sombre: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.agro-pedidos-container {
+  font-family: var(--agro-fuente);
+  background: #ffffff;
+  border-radius: var(--agro-borde-radius);
+  padding: var(--agro-espaciado-md);
+  box-shadow: var(--agro-sombre);
+  max-width: 600px;
+  margin: 0 auto;
+  color: #1f2937;
+}
+
+.agro-pedidos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--agro-fondo);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.agro-pedidos-header h3 {
+  margin: 0;
+  color: var(--agro-primario);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.agro-pedidos-badge {
+  background-color: var(--agro-secundario);
+  color: #000;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+}
+
+.agro-estado-timeline {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin: 24px 0;
+}
+
+.agro-estado-timeline::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #e5e7eb;
+  z-index: 1;
+  transform: translateY(-50%);
+}
+
+.agro-timeline-step {
+  position: relative;
+  z-index: 2;
+  background: #fff;
+  padding: 0 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.agro-step-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: bold;
+  margin-bottom: 6px;
+  transition: all 0.3s ease;
+}
+
+.agro-timeline-step.completed .agro-step-dot,
+.agro-timeline-step.active .agro-step-dot {
+  background: var(--agro-primario);
+  color: #ffffff;
+}
+
+.agro-timeline-step.active .agro-step-dot {
+  box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.2);
+  transform: scale(1.1);
+}
+
+.agro-step-label {
+  font-size: 0.75rem;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+.agro-simulador-panel {
+  background: var(--agro-fondo);
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 16px;
+  font-size: 0.9rem;
+}
+
+.agro-btn {
+  background: var(--agro-primario);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.agro-btn:hover {
+  background: #1b5e20;
+}

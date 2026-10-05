@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgroCesar - MFE Pedidos</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Carga de Vue 3 desde CDN sin empaquetadores -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body style="background-color: var(--agro-fondo); padding: 20px;">
+
+  <div style="max-width: 700px; margin: 0 auto; text-align: center; margin-bottom: 20px;">
+    <h2 style="color: var(--agro-primario);">AgroCesar Marketplace - MFE Pedidos</h2>
+    <p>Desarrollado por: <strong>Anderson Javier Cuadrado Arguello</strong> (Vue 3 via CDN)</p>
+    
+    <div style="margin-top: 15px; display: flex; gap: 10px; justify-content: center;">
+      <button class="agro-btn" onclick="mountAgroSeguimiento('mfe-pedidos-container')">Montar MFE</button>
+      <button class="agro-btn" style="background: #dc2626;" onclick="unmountAgroSeguimiento('mfe-pedidos-container')">Desmontar MFE</button>
+    </div>
+  </div>
+
+  <!-- Contenedor donde el Shell o este test local montan el MFE -->
+  <div id="mfe-pedidos-container"></div>
+
+  <!-- Script del MFE -->
+  <script src="pedidos.js"></script>
+  <script>
+    // Auto-montar para previsualización local
+    document.addEventListener('DOMContentLoaded', () => {
+      mountAgroSeguimiento('mfe-pedidos-container');
+    });
+  </script>
+</body>
+</html>
