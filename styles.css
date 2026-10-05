@@ -1,47 +1,60 @@
-/* Estilos locales de MFE Pedidos consumiendo los tokens visuales del Shell */
+/* Estilos unificados y modernizados consumiendo tokens.css de AgroCesar */
 :root {
   --agro-primario: #2e7d32;
   --agro-secundario: #fbc02d;
+  --agro-verde-accion: #10b981;
   --agro-fuente: 'Inter', system-ui, -apple-system, sans-serif;
-  --agro-fondo: #f9fafb;
-  --agro-espaciado-md: 16px;
-  --agro-borde-radius: 12px;
-  --agro-sombre: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --agro-fondo: #f4fbf7;
+  --agro-fondo-gradiente: linear-gradient(135deg, #f4fbf7 0%, #e8f5e9 50%, #fffde7 100%);
+  --agro-espaciado-md: 20px;
+  --agro-borde-radius: 20px;
+  --agro-sombre-card: 0 10px 25px -5px rgba(46, 125, 50, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+}
+
+body {
+  margin: 0;
+  font-family: var(--agro-fuente);
+  background: var(--agro-fondo-gradiente);
+  min-height: 100vh;
+  color: #111827;
 }
 
 .agro-pedidos-container {
   font-family: var(--agro-fuente);
   background: #ffffff;
   border-radius: var(--agro-borde-radius);
-  padding: var(--agro-espaciado-md);
-  box-shadow: var(--agro-sombre);
-  max-width: 600px;
+  padding: 28px;
+  box-shadow: var(--agro-sombre-card);
+  max-width: 650px;
   margin: 0 auto;
-  color: #1f2937;
+  border: 1px solid rgba(46, 125, 50, 0.1);
 }
 
 .agro-pedidos-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid var(--agro-fondo);
-  padding-bottom: 12px;
-  margin-bottom: 16px;
+  border-bottom: 2px solid #f3f4f6;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .agro-pedidos-header h3 {
   margin: 0;
-  color: var(--agro-primario);
+  color: #065f46;
+  font-size: 1.35rem;
+  font-weight: 800;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .agro-pedidos-badge {
-  background-color: var(--agro-secundario);
-  color: #000;
-  font-weight: bold;
-  padding: 4px 10px;
+  background-color: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+  font-weight: 700;
+  padding: 6px 14px;
   border-radius: 20px;
   font-size: 0.85rem;
 }
@@ -50,83 +63,94 @@
   display: flex;
   justify-content: space-between;
   position: relative;
-  margin: 24px 0;
+  margin: 36px 0 28px 0;
 }
 
 .agro-estado-timeline::before {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
+  top: 18px;
+  left: 30px;
+  right: 30px;
   height: 4px;
   background: #e5e7eb;
   z-index: 1;
-  transform: translateY(-50%);
 }
 
 .agro-timeline-step {
   position: relative;
   z-index: 2;
-  background: #fff;
-  padding: 0 8px;
-  text-align: center;
+  background: #ffffff;
+  padding: 0 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .agro-step-dot {
-  width: 28px;
-  height: 28px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: #e5e7eb;
-  color: #6b7280;
+  background: #f3f4f6;
+  color: #9ca3af;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85rem;
-  font-weight: bold;
-  margin-bottom: 6px;
-  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid #e5e7eb;
 }
 
-.agro-timeline-step.completed .agro-step-dot,
-.agro-timeline-step.active .agro-step-dot {
-  background: var(--agro-primario);
+.agro-timeline-step.completed .agro-step-dot {
+  background: #10b981;
+  border-color: #10b981;
   color: #ffffff;
 }
 
 .agro-timeline-step.active .agro-step-dot {
-  box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.2);
-  transform: scale(1.1);
+  background: var(--agro-primario);
+  border-color: var(--agro-primario);
+  color: #ffffff;
+  box-shadow: 0 0 0 6px rgba(46, 125, 50, 0.18);
+  transform: scale(1.15);
 }
 
 .agro-step-label {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: #4b5563;
-  font-weight: 500;
+  font-weight: 600;
+}
+
+.agro-timeline-step.active .agro-step-label {
+  color: var(--agro-primario);
+  font-weight: 800;
 }
 
 .agro-simulador-panel {
-  background: var(--agro-fondo);
-  border-radius: 8px;
-  padding: 12px;
-  margin-top: 16px;
-  font-size: 0.9rem;
+  background: #f9fafb;
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-top: 20px;
+  border: 1px dashed #d1d5db;
 }
 
 .agro-btn {
-  background: var(--agro-primario);
+  background: #10b981;
   color: white;
   border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
+  padding: 12px 24px;
+  border-radius: 12px;
   cursor: pointer;
-  font-weight: 600;
-  transition: background 0.2s;
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+  transition: all 0.2s ease;
 }
 
 .agro-btn:hover {
-  background: #1b5e20;
+  background: #059669;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
 }
