@@ -1,6 +1,6 @@
 /**
  * MFE Seguimiento de Pedidos (AgroCesar)
- * TecnologÃ­a: Vue 3 (vÃ­a CDN)
+ * Tecnología: Vue 3 (vía CDN)
  * Responsable: Anderson Javier Cuadrado Arguello
  */
 
@@ -10,7 +10,7 @@
   const activeTimers = new Map();
   const activeListeners = new Map();
 
-  const ESTADOS = ['Recibido', 'En preparaciÃ³n', 'En camino', 'Entregado'];
+  const ESTADOS = ['Recibido', 'En preparación', 'En camino', 'Entregado'];
 
   /**
    * Montaje del MFE en el contenedor especificado
@@ -42,13 +42,13 @@
           </div>
 
           <div v-if="!pedidoId" class="agro-simulador-panel" style="text-align: center;">
-            <p>No hay pedidos en curso activamos la escucha de eventos...</p>
+            <p>No hay pedidos en curso. Activamos la escucha de eventos...</p>
             <button class="agro-btn" @click="simularPedidoSimulado">Simular Pedido de Prueba (v2)</button>
           </div>
 
           <div v-else>
             <div style="margin-bottom: 12px; font-size: 0.95rem;">
-              <strong>Total:</strong> \${{ totalFormat }} 
+              <strong>Total:</strong> \${{ totalFormat }} COP
               <span v-if="conductorId" style="color: #6b7280; margin-left: 8px;">(Conductor: {{ conductorId }})</span>
             </div>
 
@@ -70,7 +70,7 @@
             <div class="agro-simulador-panel">
               <strong>Estado Actual:</strong> {{ estadoActual }}
               <div style="font-size: 0.8rem; color: #6b7280; margin-top: 4px;">
-                SimulaciÃ³n de avances logÃ­sticos automÃ¡tica activa.
+                Simulación de avances logísticos automática activa.
               </div>
             </div>
           </div>
@@ -137,14 +137,14 @@
             detail: {
               pedidoId: 'PED-' + Math.floor(Math.random() * 8999 + 1000),
               total: 45000,
-              idConductor: 'COND-99 (Juan PÃ©rez)'
+              idConductor: 'COND-99 (Juan Pérez)'
             }
           });
           window.dispatchEvent(eventoV2);
         };
 
         onMounted(() => {
-          // SuscripciÃ³n a v1 y v2
+          // Suscripción a v1 y v2
           window.addEventListener('pedido:confirmado', handlePedidoConfirmado);
           window.addEventListener('pedido:confirmado:v2', handlePedidoConfirmado);
 
@@ -158,7 +158,7 @@
         onUnmounted(() => {
           if (timerId) {
             clearInterval(timerId);
-            console.log('[AgroSeguimiento] Intervalo de logÃ­stica limpiado.');
+            console.log('[AgroSeguimiento] Intervalo de logística limpiado.');
           }
           window.removeEventListener('pedido:confirmado', handlePedidoConfirmado);
           window.removeEventListener('pedido:confirmado:v2', handlePedidoConfirmado);
@@ -180,11 +180,11 @@
     const vm = app.mount(mountTarget);
     activeApps.set(containerId, app);
 
-    console.log(`[AgroSeguimiento] Montado con Ã©xito en #${containerId}`);
+    console.log(`[AgroSeguimiento] Montado con éxito en #${containerId}`);
   };
 
   /**
-   * Desmontaje del MFE garantizando no dejar timers ni listeners huÃ©rfanos
+   * Desmontaje del MFE garantizando no dejar timers ni listeners huérfanos
    */
   window.unmountAgroSeguimiento = function (containerId) {
     const targetId = typeof containerId === 'string' ? containerId : containerId.id;
